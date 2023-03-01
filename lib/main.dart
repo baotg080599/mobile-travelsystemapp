@@ -1,4 +1,5 @@
 // import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -12,10 +13,10 @@ AppStore appStore = AppStore();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp();
   await initialize();
 
   appStore.toggleDarkMode(value: getBoolAsync(isDarkModeOnPref));
-  // await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
