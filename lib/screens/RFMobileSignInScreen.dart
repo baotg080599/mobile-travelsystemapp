@@ -95,7 +95,7 @@ class _RFMobileSignInState extends State<RFMobileSignIn> {
         },
         verificationFailed: (FirebaseAuthException authException) {
           print(
-              'Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}. Phone number: ${phoneNumber}');
+              'Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}. Phone number: ${this.dialCodeDigits + phoneController.text}');
         },
         codeSent: (verificationId, [forceResendingToken]) {
           print('Please check your phone for the verification code.');
