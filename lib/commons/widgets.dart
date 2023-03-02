@@ -93,3 +93,27 @@ PreferredSizeWidget careaAppBarWidget(BuildContext context,
     elevation: 0.0,
   );
 }
+
+class MyWidget extends StatelessWidget {
+  final Widget child;
+  final EdgeInsets margin;
+  final double height;
+  final double width;
+
+  const MyWidget(
+      {super.key,
+      required this.child,
+      required this.margin,
+      required this.height,
+      required this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+      width: screenWidth * width,
+      height: screenHeight * height,
+    );
+  }
+}

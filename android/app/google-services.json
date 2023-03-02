@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "712635131057",
+    "project_id": "travel-378415",
+    "storage_bucket": "travel-378415.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712635131057:android:9244caefaaac1c6801ae90",
+        "android_client_info": {
+          "package_name": "com.iqonic.room_finder_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712635131057-igb6t5vqu7kru1uoov81h70pjb2b37qq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm62DGVB74C3VBYHdCpdzsgKyI57WbiFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712635131057-igb6t5vqu7kru1uoov81h70pjb2b37qq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "712635131057-3akq50ob9kno9nbg00uthof1k0ptpeiq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterExample"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
