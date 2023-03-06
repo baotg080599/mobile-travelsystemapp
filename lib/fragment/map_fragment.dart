@@ -5,9 +5,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:room_finder_flutter/components/RFCommonAppComponent.dart';
 import 'package:room_finder_flutter/components/location_list_tile.dart';
+import 'package:room_finder_flutter/components/nearby_places_component.dart';
 import 'package:room_finder_flutter/models/autocomplete_prediction.dart';
 import 'package:room_finder_flutter/models/place_auto_complete_response.dart';
-import 'package:room_finder_flutter/utils/RFString.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:room_finder_flutter/utils/network.dart';
@@ -28,6 +28,7 @@ class _MapFragmentState extends State<MapFragment> {
   late GoogleMapController mapController;
 
   final LatLng _center = const LatLng(10.8411276, 106.8098830);
+  double lat = 0.0, lon = 0.0;
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -54,10 +55,15 @@ class _MapFragmentState extends State<MapFragment> {
     }
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      lat = position.latitude;
+      lon = position.longitude;
+    });
     LatLng latLngPosition = LatLng(position.latitude, position.longitude);
 
     // Move camera to the current location
     mapController.animateCamera(CameraUpdate.newLatLngZoom(latLngPosition, 16));
+    print('Toa do: ${lat}');
   }
 
   void placeAutoComplate(String query) async {
@@ -83,7 +89,7 @@ class _MapFragmentState extends State<MapFragment> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: RFCommonAppComponent(
-        scroll: false,
+        scroll: true,
         // title: RFAppName,
         mainWidgetHeight: screenHeight * 0.2,
         subWidgetHeight: screenHeight * 0.1,
@@ -126,24 +132,33 @@ class _MapFragmentState extends State<MapFragment> {
             // )
           ],
         ),
-        subWidget: Container(
-          width: context.width(),
-          height: screenHeight * 0.5,
-          margin: EdgeInsets.symmetric(horizontal: 24),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: GoogleMap(
-              onMapCreated: _onMapCreated,
-              initialCameraPosition: CameraPosition(
-                target: LatLng(0, 0),
-                zoom: 10.0,
+        subWidget: Column(
+          children: [
+            Container(
+              width: context.width(),
+              height: screenHeight * 0.5,
+              margin: EdgeInsets.symmetric(horizontal: 24),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(0, 0),
+                    zoom: 10.0,
+                  ),
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                  zoomControlsEnabled: true,
+                  zoomGesturesEnabled: true,
+                ),
               ),
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
-              zoomControlsEnabled: true,
-              zoomGesturesEnabled: true,
             ),
-          ),
+            Text('Discovery'),
+            NearbyPlacesComponent(
+              latitude: lat,
+              longitude: lon,
+            ),
+          ],
         ),
       ),
     );
