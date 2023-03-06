@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "573760159890",
+    "firebase_url": "https://chatapp-a1f73-default-rtdb.firebaseio.com",
+    "project_id": "chatapp-a1f73",
+    "storage_bucket": "chatapp-a1f73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573760159890:android:4484054f5c589b1688664b",
+        "android_client_info": {
+          "package_name": "com.iqonic.room_finder_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573760159890-23olsnj24fqbrk4s3std0if6m8tobd37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzJiqj0Giqbc8mgJJCK1kVy3gmJL-_iIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573760159890-23olsnj24fqbrk4s3std0if6m8tobd37.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:room_finder_flutter/commons/widgets.dart';
-import 'package:room_finder_flutter/components/calling_component.dart';
-import 'package:room_finder_flutter/components/chat_component.dart';
+// import 'package:room_finder_flutter/components/calling_component.dart';
+// import 'package:room_finder_flutter/components/chat_component.dart';
 import 'package:room_finder_flutter/main.dart';
+import 'package:room_finder_flutter/screens/home_page.dart';
 
 class InboxFragment extends StatefulWidget {
   @override
@@ -55,33 +56,7 @@ class _InboxFragmentState extends State<InboxFragment>
             icon: Icon(Icons.chat, color: context.iconColor, size: 20),
           ),
         ),
-        body: Column(
-          children: [
-            TabBar(
-              unselectedLabelColor: gray.withOpacity(0.6),
-              labelColor: Colors.red,
-              labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              unselectedLabelStyle:
-                  TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              indicatorColor: context.iconColor,
-              tabs: [
-                Tab(child: Text('Chats')),
-                Tab(child: Text('Calls')),
-              ],
-              controller: tabController,
-              indicatorSize: TabBarIndicatorSize.tab,
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: tabController,
-                children: [
-                  ChatComponent(),
-                  CallingComponent(),
-                ],
-              ),
-            ),
-          ],
-        ),
+        body: HomePage(),
       ),
     );
   }

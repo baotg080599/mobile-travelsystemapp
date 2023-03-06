@@ -10,7 +10,11 @@ class RFViewAllHotelListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: commonAppBarWidget(context, title: "Recently Added Properties", appBarHeight: 80, showLeadingIcon: false, roundCornerShape: true),
+      appBar: commonAppBarWidget(context,
+          title: "Tour List",
+          appBarHeight: 80,
+          showLeadingIcon: false,
+          roundCornerShape: true),
       body: ListView.builder(
         padding: EdgeInsets.only(right: 16, left: 16, bottom: 16, top: 24),
         shrinkWrap: true,

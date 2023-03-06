@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:room_finder_flutter/commons/constants.dart';
 import 'package:room_finder_flutter/commons/data_provider.dart';
@@ -6,7 +9,9 @@ import 'package:room_finder_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:room_finder_flutter/models/calling_model.dart';
+import 'package:room_finder_flutter/provider/chatProvider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ChatScreen extends StatefulWidget {
   static String tag = '/ChatScreen';
@@ -27,6 +32,12 @@ class ChatScreenState extends State<ChatScreen> {
   var msgListing = getChatMsgData();
   var personName = '';
 
+  File? imageFile;
+  bool isLoading = false;
+  String imageUrl = "";
+
+  late ChatProvider chatProvider;
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +46,52 @@ class ChatScreenState extends State<ChatScreen> {
 
   init() async {
     //
+  }
+
+  Future getImage() async {
+    ImagePicker imagePicker = ImagePicker();
+    PickedFile? pickedFile;
+
+    pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      imageFile = File(pickedFile.path);
+      if (imageFile != null) {
+        setState(() {
+          isLoading = true;
+        });
+        uploadFile();
+      }
+    }
+  }
+
+  Future uploadFile() async {
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    UploadTask uploadTask = chatProvider.uploadFile(imageFile!, fileName);
+    try {
+      TaskSnapshot snapshot = await uploadTask;
+      imageUrl = await snapshot.ref.getDownloadURL();
+      setState(() {
+        isLoading = false;
+        onSendMessage(imageUrl, TypeMessage.image);
+      });
+    } on FirebaseException catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      Fluttertoast.showToast(msg: e.message ?? e.toString());
+    }
+  }
+
+  void onSendMessage(String content, int type) {
+    // if (content.trim().isNotEmpty) {
+    //   textEditingController.clear();
+    //   chatProvider.sendMessage(content, type, groupChatId, currentUserId, widget.arguments.peerId);
+    //   if (listScrollController.hasClients) {
+    //     listScrollController.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+    //   }
+    // } else {
+    //   Fluttertoast.showToast(msg: 'Nothing to send', backgroundColor: ColorConstants.greyColor);
+    // }
   }
 
   sendClick() async {
@@ -141,7 +198,7 @@ class ChatScreenState extends State<ChatScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     IconButton(
-                        onPressed: () {},
+                        onPressed: getImage,
                         icon: Icon(
                           Icons.image,
                           size: 25,

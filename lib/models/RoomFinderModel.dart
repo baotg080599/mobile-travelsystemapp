@@ -12,6 +12,19 @@ class RoomFinderModel {
   bool? unReadNotification;
   Widget? newScreenWidget;
   Color? color;
+  String? status;
 
-  RoomFinderModel({this.img, this.roomCategoryName, this.description, this.color, this.address, this.price, this.rentDuration, this.location, this.views, this.unReadNotification, this.newScreenWidget});
+  RoomFinderModel(
+      {this.img,
+      this.roomCategoryName,
+      this.description,
+      this.color,
+      this.address,
+      this.price,
+      this.rentDuration,
+      this.location,
+      this.views,
+      this.unReadNotification,
+      this.newScreenWidget,
+      this.status});
 }

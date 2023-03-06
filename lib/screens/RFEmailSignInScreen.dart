@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 import 'package:room_finder_flutter/components/RFCommonAppComponent.dart';
 import 'package:room_finder_flutter/components/RFConformationDialog.dart';
+import 'package:room_finder_flutter/provider/AuthProvider.dart';
 import 'package:room_finder_flutter/screens/RFHomeScreen.dart';
-import 'package:room_finder_flutter/screens/RFResetPasswordScreen.dart';
 import 'package:room_finder_flutter/screens/RFSignUpScreen.dart';
 import 'package:room_finder_flutter/utils/RFColors.dart';
 import 'package:room_finder_flutter/utils/RFString.dart';
@@ -37,7 +38,8 @@ class _RFEmailSignInScreenState extends State<RFEmailSignInScreen> {
   }
 
   void init() async {
-    setStatusBarColor(rf_primaryColor, statusBarIconBrightness: Brightness.light);
+    setStatusBarColor(rf_primaryColor,
+        statusBarIconBrightness: Brightness.light);
 
     widget.showDialog
         ? Timer.run(() {
@@ -48,7 +50,9 @@ class _RFEmailSignInScreenState extends State<RFEmailSignInScreen> {
                 Future.delayed(Duration(seconds: 1), () {
                   Navigator.of(context).pop(true);
                 });
-                return Material(type: MaterialType.transparency, child: RFConformationDialog());
+                return Material(
+                    type: MaterialType.transparency,
+                    child: RFConformationDialog());
               },
             );
           })
@@ -62,6 +66,20 @@ class _RFEmailSignInScreenState extends State<RFEmailSignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    switch (authProvider.status) {
+      case Status.authenticateError:
+        Fluttertoast.showToast(msg: "Sign in fail");
+        break;
+      case Status.authenticateCanceled:
+        Fluttertoast.showToast(msg: "Sign in canceled");
+        break;
+      case Status.authenticated:
+        Fluttertoast.showToast(msg: "Sign in success");
+        break;
+      default:
+        break;
+    }
     return Scaffold(
       body: RFCommonAppComponent(
         title: RFAppName,
@@ -83,7 +101,9 @@ class _RFEmailSignInScreenState extends State<RFEmailSignInScreen> {
                 showLableText: true,
                 suffixIcon: Container(
                   padding: EdgeInsets.all(2),
-                  decoration: boxDecorationWithRoundedCorners(boxShape: BoxShape.circle, backgroundColor: rf_rattingBgColor),
+                  decoration: boxDecorationWithRoundedCorners(
+                      boxShape: BoxShape.circle,
+                      backgroundColor: rf_rattingBgColor),
                   child: Icon(Icons.done, color: Colors.white, size: 14),
                 ),
               ),
@@ -105,7 +125,19 @@ class _RFEmailSignInScreenState extends State<RFEmailSignInScreen> {
               width: context.width(),
               elevation: 0,
               onTap: () {
-                RFHomeScreen().launch(context);
+                authProvider.handleSignIn().then((isSuccess) {
+                  if (isSuccess) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RFHomeScreen(),
+                      ),
+                    );
+                  }
+                }).catchError((error, stackTrace) {
+                  Fluttertoast.showToast(msg: error.toString());
+                  authProvider.handleException();
+                });
               },
             ),
             Align(
@@ -113,12 +145,13 @@ class _RFEmailSignInScreenState extends State<RFEmailSignInScreen> {
               child: TextButton(
                   child: Text("Reset Password?", style: primaryTextStyle()),
                   onPressed: () {
-                    RFResetPasswordScreen().launch(context);
+                    RFHomeScreen().launch(context);
                   }),
             ),
           ],
         ),
-        subWidget: socialLoginWidget(context, title1: "New Member? ", title2: "Sign up Here", callBack: () {
+        subWidget: socialLoginWidget(context,
+            title1: "New Member? ", title2: "Sign up Here", callBack: () {
           RFSignUpScreen().launch(context);
         }),
       ),

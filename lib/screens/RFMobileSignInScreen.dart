@@ -4,7 +4,6 @@ import 'package:room_finder_flutter/components/RFCommonAppComponent.dart';
 import 'package:room_finder_flutter/main.dart';
 import 'package:room_finder_flutter/screens/RFEmailSignInScreen.dart';
 import 'package:room_finder_flutter/screens/RFResetPasswordScreen.dart';
-import 'package:room_finder_flutter/screens/RFSignUpScreen.dart';
 import 'package:room_finder_flutter/utils/RFColors.dart';
 import 'package:room_finder_flutter/utils/RFString.dart';
 import 'package:room_finder_flutter/utils/RFWidget.dart';
@@ -58,12 +57,19 @@ class _RFMobileSignInState extends State<RFMobileSignIn> {
               16.height,
               Container(
                 padding: EdgeInsets.only(left: 15),
-                decoration: boxDecoration(showShadow: false, bgColor: context.cardColor, radius: 8, color: context.dividerColor),
+                decoration: boxDecoration(
+                    showShadow: false,
+                    bgColor: context.cardColor,
+                    radius: 8,
+                    color: context.dividerColor),
                 height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    CountryCodePicker(onChanged: print, padding: EdgeInsets.all(0), showFlag: false),
+                    CountryCodePicker(
+                        onChanged: print,
+                        padding: EdgeInsets.all(0),
+                        showFlag: false),
                     Container(
                       height: 25.0,
                       width: 1.0,
@@ -72,7 +78,8 @@ class _RFMobileSignInState extends State<RFMobileSignIn> {
                     ),
                     TextField(
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(border: InputBorder.none, hintText: "Phone Number"),
+                      decoration: InputDecoration(
+                          border: InputBorder.none, hintText: "Phone Number"),
                       onChanged: (value) {},
                     ).expand(),
                   ],
@@ -103,7 +110,7 @@ class _RFMobileSignInState extends State<RFMobileSignIn> {
             title1: "New Member? ",
             title2: "Sign up Here",
             callBack: () {
-              RFSignUpScreen().launch(context);
+              Fluttertoast.showToast(msg: "Sign in success");
             },
           ),
         ),

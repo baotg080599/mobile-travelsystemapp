@@ -4,8 +4,8 @@ import 'package:room_finder_flutter/fragment/RFAccountFragment.dart';
 import 'package:room_finder_flutter/fragment/RFHomeFragment.dart';
 import 'package:room_finder_flutter/fragment/RFSearchFragment.dart';
 import 'package:room_finder_flutter/fragment/RFSettingsFragment.dart';
-import 'package:room_finder_flutter/fragment/inbox_fragment.dart';
-import 'package:room_finder_flutter/screens/chat_screen.dart';
+
+import 'package:room_finder_flutter/screens/home_page.dart';
 import 'package:room_finder_flutter/utils/RFColors.dart';
 import 'package:room_finder_flutter/utils/RFImages.dart';
 import 'package:room_finder_flutter/utils/RFWidget.dart';
@@ -23,7 +23,7 @@ class _RFHomeScreenState extends State<RFHomeScreen> {
     RFSearchFragment(),
     RFSettingsFragment(),
     RFAccountFragment(),
-    InboxFragment(),
+    HomePage(),
   ];
 
   Widget _bottomTab() {
@@ -58,7 +58,7 @@ class _RFHomeScreenState extends State<RFHomeScreen> {
           activeIcon: rf_person.iconImage(iconColor: rf_primaryColor),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.message),
+          icon: Icon(Icons.chat),
           label: 'Inbox',
           activeIcon: Icon(Icons.message),
         ),

@@ -37,7 +37,8 @@ class _RFHomeFragmentState extends State<RFHomeFragment> {
   }
 
   void init() async {
-    setStatusBarColor(rf_primaryColor, statusBarIconBrightness: Brightness.light);
+    setStatusBarColor(rf_primaryColor,
+        statusBarIconBrightness: Brightness.light);
   }
 
   @override
@@ -64,7 +65,8 @@ class _RFHomeFragmentState extends State<RFHomeFragment> {
                 hintText: "Search address or near you",
                 showPreFixIcon: true,
                 showLableText: false,
-                prefixIcon: Icon(Icons.location_on, color: rf_primaryColor, size: 18),
+                prefixIcon:
+                    Icon(Icons.location_on, color: rf_primaryColor, size: 18),
               ),
             ),
             16.height,
@@ -83,7 +85,8 @@ class _RFHomeFragmentState extends State<RFHomeFragment> {
               },
               child: Align(
                 alignment: Alignment.topRight,
-                child: Text('Advance Search', style: primaryTextStyle(), textAlign: TextAlign.end),
+                child: Text('Advance Search',
+                    style: primaryTextStyle(), textAlign: TextAlign.end),
               ),
             )
           ],
@@ -115,7 +118,10 @@ class _RFHomeFragmentState extends State<RFHomeFragment> {
                     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     child: Text(
                       data.roomCategoryName.validate(),
-                      style: boldTextStyle(color: selectCategoryIndex == index ? rf_primaryColor : gray),
+                      style: boldTextStyle(
+                          color: selectCategoryIndex == index
+                              ? rf_primaryColor
+                              : gray),
                     ),
                   ),
                 );
@@ -124,12 +130,15 @@ class _RFHomeFragmentState extends State<RFHomeFragment> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Recently Added Properties', style: boldTextStyle()),
+                Text('Tour List', style: boldTextStyle()),
                 TextButton(
                   onPressed: () {
                     RFViewAllHotelListScreen().launch(context);
                   },
-                  child: Text('View All', style: secondaryTextStyle(decoration: TextDecoration.underline, textBaseline: TextBaseline.alphabetic)),
+                  child: Text('View All',
+                      style: secondaryTextStyle(
+                          decoration: TextDecoration.underline,
+                          textBaseline: TextBaseline.alphabetic)),
                 )
               ],
             ).paddingOnly(left: 16, right: 16, top: 16, bottom: 8),
@@ -150,9 +159,12 @@ class _RFHomeFragmentState extends State<RFHomeFragment> {
                 Text('Locations', style: boldTextStyle()),
                 TextButton(
                   onPressed: () {
-                    RFLocationViewAllScreen(locationWidth: true).launch(context);
+                    RFLocationViewAllScreen(locationWidth: true)
+                        .launch(context);
                   },
-                  child: Text('View All', style: secondaryTextStyle(decoration: TextDecoration.underline)),
+                  child: Text('View All',
+                      style: secondaryTextStyle(
+                          decoration: TextDecoration.underline)),
                 )
               ],
             ).paddingOnly(left: 16, right: 16, bottom: 8),
@@ -160,7 +172,8 @@ class _RFHomeFragmentState extends State<RFHomeFragment> {
               spacing: 16,
               runSpacing: 16,
               children: List.generate(locationListData.length, (index) {
-                return RFLocationComponent(locationData: locationListData[index]);
+                return RFLocationComponent(
+                    locationData: locationListData[index]);
               }),
             ),
             Row(
@@ -171,7 +184,9 @@ class _RFHomeFragmentState extends State<RFHomeFragment> {
                   onPressed: () {
                     RFRecentUpdateViewAllScreen().launch(context);
                   },
-                  child: Text('See All', style: secondaryTextStyle(decoration: TextDecoration.underline)),
+                  child: Text('See All',
+                      style: secondaryTextStyle(
+                          decoration: TextDecoration.underline)),
                 )
               ],
             ).paddingOnly(left: 16, right: 16, top: 16, bottom: 8),
